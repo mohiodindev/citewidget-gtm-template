@@ -1,6 +1,9 @@
-___TERMS_OF_SERVICE___
+﻿___TERMS_OF_SERVICE___
 
-By creating or modifying this file you agree to Google Tag Manager's Community Template Gallery Developer Terms of Service available at https://developers.google.com/tag-manager/gallery-tos (or such other URL as Google may provide), as modified from time to time.
+By creating or modifying this file you agree to Google Tag Manager's Community
+Template Gallery Developer Terms of Service available at
+https://developers.google.com/tag-manager/gallery-tos (or such other URL as
+Google may provide), as modified from time to time.
 
 
 ___INFO___
@@ -783,3 +786,5 @@ ___NOTES___
 
 Created for CiteWidget (citewidget.com). Contract v1.
 The template cannot set a CSP nonce: GTM injects scripts with its own nonce handling. Sites with a strict CSP need the script URL and https://api.citewidget.com + https://app.citewidget.com in connect-src.
+
+
