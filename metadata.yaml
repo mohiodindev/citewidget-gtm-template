@@ -1,5 +1,5 @@
 homepage: "https://citewidget.com"
 documentation: "https://citewidget.com/docs/install/google-tag-manager/"
 versions:
-  - sha: 9bbfd8a7966bf9f3d44446e12920cfb1b4f3d3b2
+  - sha: 55170c724207e92951ec67f4f0dfbfdad6e7ece5
     changeNotes: Initial release
