@@ -9,6 +9,7 @@ ___INFO___
   "type": "TAG",
   "id": "cvt_temp_public_id",
   "version": 1,
+  "securityGroups": [],
   "displayName": "CiteWidget",
   "categories": [
     "CHAT",
@@ -666,7 +667,7 @@ scenarios:
 - name: Minimal tag sets the three connection options and loads the v1 script
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('setInWindow').wasCalledWith('CiteWidgetConfig', {
       workspaceKey: 'pk_demo12345',
@@ -679,7 +680,7 @@ scenarios:
 - name: Empty display options are not set, so the dashboard keeps applying
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com","title":"","launcher":"","colorScheme":"","position":"","chatDuration":"","suggestions":""};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('setInWindow').wasCalledWith('CiteWidgetConfig', {
       workspaceKey: 'pk_demo12345',
@@ -689,7 +690,7 @@ scenarios:
 - name: Every option is passed through with its contract name and type
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com","title":"Ask us","greeting":"Hi there","botName":"Docs Bot","primaryColor":"#0F766E","surfaceColor":"#ffffff","colorScheme":"auto","position":"bottom-left","launcher":"false","launcherLabel":"Help","launcherIcon":"book","launcherIconUrl":"https://example.com/icon.png","softRefusal":"No answer yet.","goodbye":"Bye!","suggestions":"One?|Two?|Three?","handoff":"true","handoffReplyTime":"within a day","leadCapture":"false","chatDuration":"15"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('setInWindow').wasCalledWith('CiteWidgetConfig', {
       workspaceKey: 'pk_demo12345',
@@ -717,7 +718,7 @@ scenarios:
 - name: A missing workspace key fails the tag and loads nothing
   code: |-
     const mockData = {"workspaceKey":"","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('gtmOnFailure').wasCalled();
     assertApi('injectScript').wasNotCalled();
@@ -725,14 +726,14 @@ scenarios:
 - name: A key that is not a public key fails the tag
   code: |-
     const mockData = {"workspaceKey":"sk_secret_value","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('gtmOnFailure').wasCalled();
     assertApi('injectScript').wasNotCalled();
 - name: A script that cannot be loaded fails the tag
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com"};
-    mock('injectScript', (url, onSuccess, onFailure) => { onFailure(); });
+    mock('injectScript', function(url, onSuccess, onFailure) { onFailure(); });
     runCode(mockData);
     assertApi('gtmOnFailure').wasCalled();
     assertApi('gtmOnSuccess').wasNotCalled();
@@ -740,13 +741,13 @@ scenarios:
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com"};
     let cacheToken;
-    mock('injectScript', (url, onSuccess, onFailure, token) => { cacheToken = token; onSuccess(); });
+    mock('injectScript', function(url, onSuccess, onFailure, token) { cacheToken = token; onSuccess(); });
     runCode(mockData);
     assertThat(cacheToken).isEqualTo('citewidget-v1');
 - name: Only the first three starter questions are kept, each trimmed
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com","suggestions":" A ||B| C |D"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('setInWindow').wasCalledWith('CiteWidgetConfig', {
       workspaceKey: 'pk_demo12345',
@@ -757,7 +758,7 @@ scenarios:
 - name: Invalid values are ignored: unknown enum, http icon URL, out-of-range duration
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com","serverUrl":"https://app.citewidget.com","colorScheme":"neon","launcherIconUrl":"http://example.com/i.png","chatDuration":"500"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('setInWindow').wasCalledWith('CiteWidgetConfig', {
       workspaceKey: 'pk_demo12345',
@@ -767,7 +768,7 @@ scenarios:
 - name: Trailing slashes are removed from the API URLs and long texts are shortened
   code: |-
     const mockData = {"workspaceKey":"pk_demo12345","apiUrl":"https://api.citewidget.com//","serverUrl":"https://app.citewidget.com","title":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"};
-    mock('injectScript', (url, onSuccess) => { onSuccess(); });
+    mock('injectScript', function(url, onSuccess) { onSuccess(); });
     runCode(mockData);
     assertApi('setInWindow').wasCalledWith('CiteWidgetConfig', {
       workspaceKey: 'pk_demo12345',
